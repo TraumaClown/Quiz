@@ -1,22 +1,12 @@
-"use client"
-
-import bg from "@/assets/bg/bg.jpg"
+import bg from "@/app/quiz/_src/assets/bg/bg.jpg"
 import Image from "next/image"
-// import { quizStateActions } from "@/redux/features/currentQuizState/currentQuizStateSlice"
-import { useAppDispatch } from "@/redux/hooks"
 
-export default function Main() {
-  const dispatch = useAppDispatch()
+const Main: React.FC = () => {
   return (
-    <div className="flex items-center justify-center flex-1 h-screen object-contain">
-      <Image
-        className=""
-        // width={1000}
-        // height={1000}
-        // sizes="90vw"
-        src={bg}
-        alt="classroom"
-      />
+    <div className="flex items-center justify-center h-screen object-contain">
+      <Image src={bg} alt="classroom" />
     </div>
   )
 }
+
+export default Main

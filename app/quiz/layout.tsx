@@ -1,20 +1,19 @@
 import type { Metadata } from "next"
-import QuizHeader from "@/components/QuizHeader"
+import { QuizLayoutProps } from "@/app/quiz/_src/types/components"
+import "./_src/css/globals.css"
 
 export const metadata: Metadata = {
   title: "Quiz",
   description: "Quiz Application",
 }
 
-export default function QuizLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+const QuizLayout: React.FC<QuizLayoutProps> = ({ children, sideNav }) => {
   return (
-    <div className="flex bg-gray-800 h-screen">
-      <QuizHeader />
+    <div className="flex bg-gray-800 h-screen relative">
+      {sideNav}
       {children}
     </div>
   )
 }
+
+export default QuizLayout

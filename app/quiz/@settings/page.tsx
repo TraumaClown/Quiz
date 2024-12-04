@@ -1,100 +1,129 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { useAppDispatch } from "@/redux/hooks"
-import { quizSettingsActions } from "@/redux/features/quizSettings/quizSettingsSlice"
-import { quizMapActions } from "@/redux/features/quizMap/quizMapSlice"
-// import { useNavigate } from "react-router-dom"
-import "./styles.css"
+import { useAppDispatch } from "@/app/_src/redux/hooks"
+import { settingsActions } from "@/app/_src/redux/features/quiz/settings/settingsSlice"
+import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
+import "./settings.css"
 
-const Setttings = () => {
+const Settings = () => {
   const [numberOfQuestion, setNumberOfQuestion] = useState<string>("7")
-  // const [typeOfQuestions, setTypeOfQuestions] = useState("")
   const typeOfQuestions = useRef<string>()
   const difficulty = useRef<string>()
-  // const numberOfQuestion = useRef<string>()
   const dispatch = useAppDispatch()
 
-  //check if all needed data is set and thereafter, navigate to quiz-session to start the quiz.
-  const startSession = () => {
+  const startSession = (): void => {
+    //make sure the required data in collected
     if (!typeOfQuestions.current || !difficulty.current) {
-      alert("Please select a Question Type")
+      alert("Not done yet!")
       return
     }
-    dispatch(quizSettingsActions.setDifficulty(difficulty.current))
-    dispatch(quizSettingsActions.setType(typeOfQuestions.current))
-    dispatch(quizSettingsActions.setAmount(numberOfQuestion))
-    dispatch(quizMapActions.change("session"))
+    //dispatch the required data and then change the slot
+    dispatch(settingsActions.setDifficulty(difficulty.current))
+    dispatch(settingsActions.setType(typeOfQuestions.current))
+    dispatch(settingsActions.setAmount(numberOfQuestion))
+    dispatch(mapActions.change("session"))
   }
 
-  const difficultyClasses =
-    "w-32 h-24 bg-gray-400 gap-10 flex justify-center items-center bor cursor-pointer"
-
   return (
-    <div className="flex flex-col flex-1 items-center h-full overflow-hidden text-white justify-center">
-      <div className="T-NOQ-page__title">
-        <h2>Type & Number Of Questions</h2>
-        <small className="text-center">Almost Done!</small>
+    <>
+      <h2 className="text-center text-white py-5 text-xl">
+        :: Configuration ::
+      </h2>
+
+      {/* difficulties */}
+      <div className="w-full flex flex-col items-center h-full text-white gap-y-5 px-5">
+        <div className="bordered flex flex-col items-center mt-5 w-full">
+          <p className="self-start p-2">Select Difficulty :</p>
+          <div className="flex">
+            <input
+              type="radio"
+              name="difficulty"
+              id="easy"
+              className="hidden"
+              onClick={() => (difficulty.current = "easy")}
+            />
+            <label htmlFor="easy" className="btn-settings">
+              Easy
+            </label>
+            <input
+              type="radio"
+              name="difficulty"
+              id="medium"
+              className="hidden"
+              onClick={() => (difficulty.current = "medium")}
+            />
+            <label htmlFor="medium" className="btn-settings">
+              Medium
+            </label>
+            <input
+              type="radio"
+              name="difficulty"
+              id="difficult"
+              className="hidden"
+              onClick={() => (difficulty.current = "hard")}
+            />
+            <label htmlFor="difficult" className="btn-settings">
+              Difficult
+            </label>
+          </div>
+        </div>
+
+        {/* types */}
+        <div className="bordered flex flex-col items-center w-full mx-20">
+          <p className="self-start p-2">Select Type :</p>
+          <div className="flex">
+            <input
+              type="radio"
+              name="type"
+              id="multiple"
+              className="hidden"
+              onClick={() => (typeOfQuestions.current = "multiple")}
+            />
+            <label htmlFor="multiple" className="btn-settings">
+              Multiple
+            </label>
+            <input
+              type="radio"
+              name="type"
+              id="boolean"
+              className="hidden"
+              onClick={() => (typeOfQuestions.current = "boolean")}
+            />
+            <label htmlFor="boolean" className="btn-settings">
+              True | False
+            </label>
+          </div>
+        </div>
+
+        {/* range */}
+        <div className="bordered flex flex-col items-center w-full p-2">
+          <p className="p-1">How many questions would you like to be asked?</p>
+          <div className="flex justify-center w-full">
+            <span>1</span>
+            <input
+              onChange={(e) => setNumberOfQuestion(e.currentTarget.value)}
+              className="w-1/2"
+              type="range"
+              min={1}
+              max={10}
+              value={numberOfQuestion}
+            />
+            <span>10</span>
+          </div>
+          <span className="text-lg">{`# ${numberOfQuestion} #`}</span>
+        </div>
+
+        {/* start btn */}
+        <div className="session-start-btn-container">
+          <button onClick={startSession} className="start-btn">
+            Start Your Quiz Session
+          </button>
+          <div className="beat-effect"></div>
+        </div>
       </div>
-      <div className="flex justify-evenly">
-        <div
-          className={`${difficultyClasses} border-r-2 border-black`}
-          onClick={() => (difficulty.current = "easy")}
-        >
-          Easy
-        </div>
-        <div
-          className={`${difficultyClasses}`}
-          onClick={() => (difficulty.current = "medium")}
-        >
-          Medium
-        </div>
-        <div
-          className={`${difficultyClasses} border-l-2 border-black`}
-          onClick={() => (difficulty.current = "hard")}
-        >
-          Difficult
-        </div>
-      </div>
-      <div className="T-NOQ-page__type-container">
-        <div
-          onClick={() => (typeOfQuestions.current = "multiple")}
-          className={difficultyClasses}
-        >
-          Multiple Choices
-        </div>
-        <div
-          onClick={() => (typeOfQuestions.current = "boolean")}
-          className={difficultyClasses}
-        >
-          True | False
-        </div>
-      </div>
-      <div className="T-NOQ-page__NOQ">
-        <p>How many questions would you like to be asked?</p>
-        <div className="NOQ__wrapper">
-          1
-          <input
-            className="NOQ__range"
-            onChange={(e) => setNumberOfQuestion(e.currentTarget.value)}
-            type="range"
-            min={1}
-            max={20}
-            value={numberOfQuestion}
-          />
-          20
-        </div>
-        {`::
-        ${numberOfQuestion} ::`}
-      </div>
-      <div className="session-start-btn-container">
-        <button onClick={startSession} className="start-btn">
-          Start Your Quiz Session
-        </button>
-        <div className="beat-effect"></div>
-      </div>
-    </div>
+    </>
   )
 }
 
-export default Setttings
+export default Settings

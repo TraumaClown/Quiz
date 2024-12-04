@@ -1,71 +1,139 @@
 "use client"
 
-import Choices_Boolean from "@/components/Choices_Boolean"
-import { QuizData } from "@/types/QuizData"
-import assembleQuizSessionURL from "@/utils/assembleQuizSessionURL"
-import { useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
+import { useAppDispatch, useAppSelector } from "@/app/_src/redux/hooks"
+import { useGetQuizQuery } from "@/app/_src/redux/features/quiz/api/apiSlice"
+import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
+import { recordActions } from "@/app/_src/redux/features/quiz/record/recordSlice"
+import { decode } from "html-entities"
+import assembleQuizSessionURL from "@/app/quiz/_src/hooks/useAssembleQuizSessionURL"
+import Choices_Multiple from "./Choices_Multiple"
+import Choices_Boolean from "./Choices_Boolean"
+import Loading from "../loading"
+import useCalculateResultPercentage from "@/app/quiz/_src/hooks/useCalculateResultPercentage"
+import type { QuizData } from "@/app/quiz/_src/types/models"
+import type { SessionProgressTracker } from "@/app/quiz/_src/types/components"
+import "./session.css"
 
-export default function Session() {
-  const { url, isURLValid, type: quizType } = assembleQuizSessionURL()
+const Modal = lazy(() => import("@/app/quiz/_src/components/modal/Modal"))
 
-  // const fetchData = async () => {
-  //   "use server"
-  //   const request = await fetch(url)
-  //   const data = await request.json()
-  //   return data
-  // }
-  const data = fetch(url)
-  // const results: QuizData = data.results
-  // const { question, correct_answer, incorrect_answers } =
-  // data.results[current]
-  const [SessionQuestionIndex, setSessionQuestionIndex] = useState({
-    current: 0,
-    // max: results.length,
-    max: 2,
+const Session: React.FC = () => {
+  const { URL, type: quizType } = assembleQuizSessionURL()
+
+  const { data, isLoading, error, isError } = useGetQuizQuery(URL)
+  const err = error as unknown as { status: string; error: string }
+  const dispatch = useAppDispatch()
+  const stats = useAppSelector((state) => state.statsReducer)
+  const { isRecording } = useAppSelector((state) => state.recordReducer)
+  const { category, type, difficulty } = useAppSelector(
+    (state) => state.settingsReducer
+  )
+
+  const { percentage, total, correctAnswersLength } =
+    useCalculateResultPercentage()
+
+  const [sessionProgressTracker, setSessionProgressTracker] =
+    useState<SessionProgressTracker>({
+      current: 0,
+      max: total,
+    })
+  const { current, max } = sessionProgressTracker
+
+  useEffect(() => {
+    if (current == max) {
+      const { correctAnswers, questions, userAnswers, userQuizResult } = stats
+      if (isRecording) {
+        dispatch(
+          recordActions.add({
+            percentage,
+            correct: correctAnswersLength,
+            total,
+            questions: questions,
+            correctAnswers: correctAnswers,
+            answers: userAnswers,
+            result: userQuizResult,
+            category,
+            difficulty,
+            type,
+          })
+        )
+      }
+      dispatch(mapActions.change("result"))
+    }
   })
 
-  let { current, max } = SessionQuestionIndex
-  const isQuizFinished = () => current === max
-  //   if (isQuizFinished()) return <QuizResultPage />
+  if (current == max) return
+  if (isLoading || !data?.results) return <Loading />
+  if (isError) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <Modal reason={err.status} desciption={err.error} />
+      </Suspense>
+    )
+  }
 
-  // const { question, correct_answer, incorrect_answers } = results[current]
+  //if there is no result for the selected settings in database, show error modal.
+  const dataIsEmpty = data.results.length == 0
+  if (dataIsEmpty) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <Modal reason={"NO_QUESTIONS_IN_DATABASE"} />
+      </Suspense>
+    )
+  }
 
+  //if somehow the required config were not set, show error modal.
+  if (!category || !type || !difficulty) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <Modal reason={"NO_QUESTIONS_IN_DATABASE"} />
+      </Suspense>
+    )
+  }
+
+  const currentQuizRoundData: QuizData["results"][0] = data.results[current]
+  const { question, correct_answer, incorrect_answers } = currentQuizRoundData
   const progressBarPrecentage = Math.ceil(((current + 1) / max) * 100)
-  //   const decoded_correct_answers = decode(correct_answer)
-  const decoded_correct_answers = correct_answer
-  //   const decodedQuestion = decode(question)
-  const decodedQuestion = question
-  //   const decoded_incorrect_answers = incorrect_answers.map((answer) =>
-  //     decode(answer)
-  const decoded_incorrect_answers = incorrect_answers.map((answer) => answer)
+  const decoded_correct_answers = decode(correct_answer)
+  const decodedQuestion = decode(question)
+  const decoded_incorrect_answers = incorrect_answers.map((answer) =>
+    decode(answer)
+  )
 
   return (
     <div className="quiz">
-      <div className="progress-bar">
+      {/* progress bar */}
+      <div className="w-full h-[1%]">
         <div
           className="progress-bar__progress"
           style={{ width: `${progressBarPrecentage}%` }}
         ></div>
       </div>
-      <div className="question-container">{decodedQuestion}</div>
+
+      {/* question */}
+      <div className="question-container w-full h-[39%] ">
+        {decodedQuestion}
+      </div>
 
       {/* depending on the [quizType] variable, load the corresponding component and send the data along. */}
       {quizType === "boolean" && (
         <Choices_Boolean
-          setSessionQuestionIndex={setSessionQuestionIndex}
+          setSessionProgressTracker={setSessionProgressTracker}
           correctAnswer={decoded_correct_answers}
-          //   incorrectAnswers={decoded_incorrect_answers}
           question={decodedQuestion}
         />
       )}
-      {/* {quizType === "multiple" && (
+
+      {quizType === "multiple" && (
         <Choices_Multiple
-          setSessionQuestionIndex={setSessionQuestionIndex}
+          setSessionProgressTracker={setSessionProgressTracker}
           correctAnswer={decoded_correct_answers}
           incorrectAnswers={decoded_incorrect_answers}
           question={decodedQuestion}
         />
-      )} */}
+      )}
     </div>
   )
 }
+
+export default Session
