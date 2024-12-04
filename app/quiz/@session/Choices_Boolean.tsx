@@ -2,6 +2,7 @@ import { MouseEvent } from "react"
 import { useDispatch } from "react-redux"
 import { statsActions } from "@/app/_src/redux/features/quiz/stats/statsSlice"
 import { ChoicesProps } from "@/app/quiz/_src/types/components"
+import { FaCheck, FaXmark } from "react-icons/fa6"
 
 const Choices_Boolean: React.FC<Partial<ChoicesProps>> = ({
   correctAnswer,
@@ -30,17 +31,21 @@ const Choices_Boolean: React.FC<Partial<ChoicesProps>> = ({
   }
 
   return (
-    <div className="w-fit h-3/5">
+    <div className="w-6/12 h-3/5 flex items-center gap-x-2  ">
       <div
-        className=""
+        className="bool-choice-true-shadow w-6/12 h-3/6  flex justify-center items-center bg-slate-400 bg-opacity-60"
         data-answer="True"
         onClick={(e) => handleChoiceSelection(e)}
-      ></div>
+      >
+        <FaCheck className="scale-[3] text-green-700" />
+      </div>
       <div
-        className=""
+        className="bool-choice-true-shadow w-6/12 h-3/6 flex justify-center items-center"
         data-answer="False"
         onClick={(e) => handleChoiceSelection(e)}
-      ></div>
+      >
+        <FaXmark className="scale-[3] text-red-700" />
+      </div>
     </div>
   )
 }
