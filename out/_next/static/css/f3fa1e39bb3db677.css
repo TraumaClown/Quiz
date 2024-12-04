@@ -1,0 +1,1 @@
+.quiz{display:flex;justify-content:normal;align-items:center;flex-direction:column;width:100%;height:100%}.progress-bar{background-color:pink}.progress-bar__progress{background-color:#6495ed;height:100%}.question-container{background-color:#faebd7;border-radius:0 0 50% 50%;padding:4em 2em;text-align:center;color:#000;font-size:clamp(1.2rem,3vw,1.7rem)}
