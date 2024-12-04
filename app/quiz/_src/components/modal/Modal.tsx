@@ -47,7 +47,7 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
     </p>
   )
 
-  const HORROR: JSX.Element = <p>An error which I didn't catch :(</p>
+  const HORROR: JSX.Element = <p>An error which I didnt catch :(</p>
 
   const message = (): JSX.Element => {
     switch (reason) {

@@ -60,7 +60,7 @@ const ResultScoreDemo: React.FC<ResultScoreDemoProps> = ({
     scoreDemo.current!.style.setProperty("--mult", size.toString())
     scoreDemo.current!.style.width = `${200 * size}px`
     scoreDemo.current!.style.height = `${200 * size}px`
-  }, [size])
+  }, [])
 
   return (
     <div

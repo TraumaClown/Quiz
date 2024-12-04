@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/app/_src/redux/hooks"
 import { QuizSettings } from "@/app/quiz/_src/types/models"
 
-const assembleQuizSessionURL = (): {
+const useAssembleQuizSessionURL = (): {
   isURLValid: boolean
   URL: string
   type: string
@@ -20,4 +20,4 @@ const assembleQuizSessionURL = (): {
   }
 }
 
-export default assembleQuizSessionURL
+export default useAssembleQuizSessionURL

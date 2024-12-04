@@ -6,7 +6,7 @@ import { useGetQuizQuery } from "@/app/_src/redux/features/quiz/api/apiSlice"
 import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
 import { recordActions } from "@/app/_src/redux/features/quiz/record/recordSlice"
 import { decode } from "html-entities"
-import assembleQuizSessionURL from "@/app/quiz/_src/hooks/useAssembleQuizSessionURL"
+import useAssembleQuizSessionURL from "@/app/quiz/_src/hooks/useAssembleQuizSessionURL"
 import Choices_Multiple from "./Choices_Multiple"
 import Choices_Boolean from "./Choices_Boolean"
 import Loading from "../loading"
@@ -18,7 +18,7 @@ import "./session.css"
 const Modal = lazy(() => import("@/app/quiz/_src/components/modal/Modal"))
 
 const Session: React.FC = () => {
-  const { URL, type: quizType } = assembleQuizSessionURL()
+  const { URL, type: quizType } = useAssembleQuizSessionURL()
 
   const { data, isLoading, error, isError } = useGetQuizQuery(URL)
   const err = error as unknown as { status: string; error: string }

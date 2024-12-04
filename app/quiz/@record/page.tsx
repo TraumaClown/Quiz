@@ -75,6 +75,7 @@ const Record: React.FC = () => {
           <small className="w-fit rounded-lg bg-green-300 px-2">
             {correct}/{total}
           </small>
+          <small className="w-fit rounded-lg bg-green-300 px-2">{type}</small>
         </div>
       </div>
     )
