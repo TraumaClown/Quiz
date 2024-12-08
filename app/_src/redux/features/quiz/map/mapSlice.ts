@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { QuizMapActions } from "@/app/quiz/_src/types/models"
+import { QuizMapActions } from "@/app/_src/types/models"
 
 const mapSlice = createSlice({
   name: "QuizMap",

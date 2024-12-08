@@ -3,7 +3,7 @@ import type {
   QuizRecord,
   QuizRecordActionAdd,
   QuizRecordSetIsRecording,
-} from "@/app/quiz/_src/types/models"
+} from "@/app/_src/types/models"
 
 const quizRecord: QuizRecord = {
   isRecording: true,

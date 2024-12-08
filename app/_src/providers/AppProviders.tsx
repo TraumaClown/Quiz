@@ -1,5 +1,5 @@
 "use client"
-import StoreProvider from "../redux/StoreProvider"
+import StoreProvider from "@/app/_src/redux/StoreProvider"
 
 export default function AppProviders({
   children,

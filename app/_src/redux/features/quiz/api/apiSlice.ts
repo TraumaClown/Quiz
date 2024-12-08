@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { QuizData } from "@/app/quiz/_src/types/models"
+import { QuizData } from "@/app/_src/types/models"
 
 export const apiSlice = createApi({
   reducerPath: "api",

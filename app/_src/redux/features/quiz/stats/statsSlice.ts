@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import type {
-  QuizStats,
-  QuizStatsActionsUpdate,
-} from "@/app/quiz/_src/types/models"
+import type { QuizStats, QuizStatsActionsUpdate } from "@/app/_src/types/models"
 
 const initialState: QuizStats = {
   questions: [],

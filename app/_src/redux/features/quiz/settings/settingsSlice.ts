@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { QuizSettings } from "@/app/quiz/_src/types/models"
+import { QuizSettings } from "@/app/_src/types/models"
 
 const initialState: QuizSettings = {
   category: "",
