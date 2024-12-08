@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { QuizStats } from "@/app/quiz/_src/types/models"
+import type {
+  QuizStats,
+  QuizStatsActionsUpdate,
+} from "@/app/quiz/_src/types/models"
 
 const initialState: QuizStats = {
   questions: [],
@@ -12,7 +15,7 @@ const statsSlice = createSlice({
   name: "QuizStats",
   initialState,
   reducers: {
-    update: (state, { payload }) => {
+    update: (state, { payload }: QuizStatsActionsUpdate) => {
       return {
         questions: [...state.questions, payload.question],
         userAnswers: [...state.userAnswers, payload.userAnswer],

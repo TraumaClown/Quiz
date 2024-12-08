@@ -39,6 +39,15 @@ export type QuizStats = {
   userQuizResult: boolean[]
 }
 
+export type QuizStatsActionsUpdate = {
+  payload: {
+    question: string
+    userAnswer: string
+    correctAnswer: string
+    userQuizResult: boolean
+  }
+}
+
 export type calculateResultPercentage = {
   percentage: number
   correctAnswersLength: number

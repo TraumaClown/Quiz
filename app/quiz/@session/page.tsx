@@ -20,7 +20,9 @@ const Modal = lazy(() => import("@/app/quiz/_src/components/modal/Modal"))
 const Session: React.FC = () => {
   const { URL, type: quizType } = useAssembleQuizSessionURL()
 
-  const { data, isLoading, error, isError } = useGetQuizQuery(URL)
+  const { data, isLoading, error, isError } = useGetQuizQuery(URL, {
+    refetchOnMountOrArgChange: true,
+  })
   const err = error as unknown as { status: string; error: string }
   const dispatch = useAppDispatch()
   const stats = useAppSelector((state) => state.statsReducer)
@@ -62,8 +64,9 @@ const Session: React.FC = () => {
     }
   })
 
+  console.log(isLoading)
   if (current == max) return
-  if (isLoading || !data?.results) return <Loading />
+  if (isLoading) return <Loading />
   if (isError) {
     return (
       <Suspense fallback={<Loading />}>
@@ -73,7 +76,7 @@ const Session: React.FC = () => {
   }
 
   //if there is no result for the selected settings in database, show error modal.
-  const dataIsEmpty = data.results.length == 0
+  const dataIsEmpty = data?.results.length == 0
   if (dataIsEmpty) {
     return (
       <Suspense fallback={<Loading />}>
@@ -91,7 +94,7 @@ const Session: React.FC = () => {
     )
   }
 
-  const currentQuizRoundData: QuizData["results"][0] = data.results[current]
+  const currentQuizRoundData: QuizData["results"][0] = data!.results[current]
   const { question, correct_answer, incorrect_answers } = currentQuizRoundData
   const progressBarPrecentage = Math.ceil(((current + 1) / max) * 100)
   const decoded_correct_answers = decode(correct_answer)
@@ -101,17 +104,17 @@ const Session: React.FC = () => {
   )
 
   return (
-    <div className="quiz">
+    <div className="flex flex-col items-center w-full h-full">
       {/* progress bar */}
-      <div className="w-full h-[1%]">
+      <div className="w-full h-[1%]" data-testid="progress bar">
         <div
-          className="progress-bar__progress"
+          className="h-full bg-blue-500"
           style={{ width: `${progressBarPrecentage}%` }}
         ></div>
       </div>
 
       {/* question */}
-      <div className="question-container w-full h-[39%] ">
+      <div className="question-container w-full h-[39%] rounded-ee-full rounded-es-full py-16 px-8 text-center text-black text-xl border-y-orange-300">
         {decodedQuestion}
       </div>
 

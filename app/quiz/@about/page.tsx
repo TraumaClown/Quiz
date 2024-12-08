@@ -15,6 +15,7 @@ const About: React.FC = () => {
         <li>Typescript</li>
         <li>Redux Toolkit & Redux Toolkit Query</li>
         <li>Tailwind + Custom CSS</li>
+        <li>Unit Testing with Jest and React Testing Library</li>
         <br />
         <p>Minor Packages :</p>
         <li>

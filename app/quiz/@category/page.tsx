@@ -15,13 +15,13 @@ const Category: React.FC = () => {
   }
 
   const categoryItems = categories.map((category) => (
-    <div
+    <li
       key={category.id}
       className="category__item w-48 h-28 transition-colors flex items-center justify-center px-3 text-white cursor-pointer text-center text-lg"
       onClick={() => selectCategory(category.id)}
     >
       {category.value}
-    </div>
+    </li>
   ))
 
   return (
@@ -29,7 +29,7 @@ const Category: React.FC = () => {
       <h2 className="text-white text-center py-5 border-b-2 border-opacity-35 border-white sticky top-0 bg-gray-800 text-xl">
         :: Select Category ::
       </h2>
-      <div className="category grid justify-center">{categoryItems}</div>
+      <ul className="category grid justify-center">{categoryItems}</ul>
     </div>
   )
 }

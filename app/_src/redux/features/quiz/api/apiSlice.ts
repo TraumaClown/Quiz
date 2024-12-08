@@ -3,7 +3,9 @@ import { QuizData } from "@/app/quiz/_src/types/models"
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "",
+  }),
   endpoints: (builder) => ({
     getQuiz: builder.query<QuizData, string>({
       query: (URL) => URL,

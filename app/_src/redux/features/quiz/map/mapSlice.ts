@@ -5,9 +5,6 @@ const mapSlice = createSlice({
   name: "QuizMap",
   initialState: (): QuizMapActions["payload"] => "main",
   reducers: {
-    current: (state) => {
-      return state
-    },
     change: (state, { payload }: QuizMapActions) => {
       return (state = payload)
     },

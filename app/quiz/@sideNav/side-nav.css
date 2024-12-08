@@ -17,7 +17,8 @@
 }
 
 .nav-icon {
-  animation: nav-icon 3s ease alternate infinite;
+  animation: nav-icon 0.3s linear alternate infinite;
+  color: red;
 }
 
 .nav-icon:has(input:checked) + nav {

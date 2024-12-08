@@ -6,7 +6,7 @@ import { settingsActions } from "@/app/_src/redux/features/quiz/settings/setting
 import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
 import "./settings.css"
 
-const Settings = () => {
+const Settings: React.FC = () => {
   const [numberOfQuestion, setNumberOfQuestion] = useState<string>("7")
   const typeOfQuestions = useRef<string>()
   const difficulty = useRef<string>()
@@ -21,7 +21,7 @@ const Settings = () => {
     //dispatch the required data and then change the slot
     dispatch(settingsActions.setDifficulty(difficulty.current))
     dispatch(settingsActions.setType(typeOfQuestions.current))
-    dispatch(settingsActions.setAmount(numberOfQuestion))
+    dispatch(settingsActions.setAmount(Number(numberOfQuestion)))
     dispatch(mapActions.change("session"))
   }
 
@@ -31,8 +31,8 @@ const Settings = () => {
         :: Configuration ::
       </h2>
 
-      {/* difficulties */}
       <div className="w-full flex flex-col items-center h-full text-white gap-y-5 px-5">
+        {/* difficulties */}
         <div className="bordered flex flex-col items-center mt-5 w-full">
           <p className="self-start p-2">Select Difficulty :</p>
           <div className="flex">
@@ -42,6 +42,7 @@ const Settings = () => {
               id="easy"
               className="hidden"
               onClick={() => (difficulty.current = "easy")}
+              style={{ display: "none" }}
             />
             <label htmlFor="easy" className="btn-settings">
               Easy

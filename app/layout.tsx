@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import StoreProvider from "./StoreProvider"
+import AppProvider from "./_src/providers/AppProviders"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -14,9 +14,9 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <StoreProvider>
+      <AppProvider>
         <body>{children}</body>
-      </StoreProvider>
+      </AppProvider>
     </html>
   )
 }

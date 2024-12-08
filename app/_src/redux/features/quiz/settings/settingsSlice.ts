@@ -12,28 +12,28 @@ const settingsSlice = createSlice({
   name: "QuizSettings",
   initialState: initialState,
   reducers: {
-    setCategory: (state, { payload }) => {
+    setCategory: (state, { payload }: { payload: string }) => {
       return (state = {
         ...state,
         category: payload,
       })
     },
 
-    setDifficulty: (state, { payload }) => {
+    setDifficulty: (state, { payload }: { payload: string }) => {
       return (state = {
         ...state,
         difficulty: payload,
       })
     },
 
-    setType: (state, { payload }) => {
+    setType: (state, { payload }: { payload: string }) => {
       return (state = {
         ...state,
         type: payload,
       })
     },
 
-    setAmount: (state, { payload }) => {
+    setAmount: (state, { payload }: { payload: number }) => {
       return (state = {
         ...state,
         amount: payload,
@@ -48,6 +48,8 @@ const settingsSlice = createSlice({
         amount: 7,
       }
     },
+
+    reset: () => initialState,
   },
 })
 

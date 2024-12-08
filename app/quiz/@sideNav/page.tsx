@@ -17,9 +17,17 @@ const SideNav: React.FC = () => {
     dispatch(mapActions.change("category"))
   }
   const restartQuiz = (): void => {
+    if (map === "session") {
+      const isConfirmed = confirm("You will lose your progress!")
+      if (isConfirmed) {
+        dispatch(statsActions.reset())
+        dispatch(mapActions.change("main"))
+      } else return
+    }
     dispatch(statsActions.reset())
     dispatch(mapActions.change("main"))
   }
+
   return (
     <>
       {/* the toggle for side nav */}
