@@ -1,4 +1,4 @@
-import { render, screen } from "@/app/_src/test-utils"
+import { render, screen } from "@/app/_src/uils/test-utils"
 import About from "@/app/@about/page"
 
 describe("About", () => {

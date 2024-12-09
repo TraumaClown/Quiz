@@ -1,4 +1,4 @@
-import { act, render, screen } from "@/app/_src/test-utils"
+import { act, render, screen } from "@/app/_src/uils/test-utils"
 import user from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { configureStore } from "@reduxjs/toolkit"
@@ -41,7 +41,7 @@ describe("Record", () => {
   test("renders NO RECORD message when there are no records", () => {
     renderWithProviders(<Record />)
 
-    expect(screen.getByText("NO RECORD !!!")).toBeInTheDocument()
+    expect(screen.getByText(/NO RECORD/)).toBeInTheDocument()
   })
 
   test("renders records", () => {

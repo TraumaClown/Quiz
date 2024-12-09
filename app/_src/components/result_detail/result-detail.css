@@ -5,9 +5,9 @@
   opacity: 0;
   transition: all 0.5s;
   overflow: auto;
-  background-color: pink;
   /* border-top-left-radius: 7vw; */
   /* border-bottom-left-radius: 7vw; */
+  color: white;
 }
 
 .table {
@@ -17,30 +17,23 @@
 }
 .table__head {
   border-bottom: 1px solid gray;
-  color: black;
 }
 .table__head .head__element {
   padding: 1em;
 }
-.table__head .head__element:first-child {
-  border-top-left-radius: 7vw;
-}
-.table__head .head__element:last-child {
-  border-top-right-radius: 7vw;
-}
+
 .table__row:not(:first-child) {
-  border-top: 1px solid gray;
+  border-top: 1px solid rgba(255, 239, 187, 0.5);
 }
 .table__row .table__element {
-  padding: 0.5em 1em;
+  padding: 2em 1em;
   text-align: center;
-  color: black;
 }
 .table__row .table__element.incorrect {
-  background-color: rgba(218, 115, 115, 0.7);
+  background-color: rgba(216, 117, 117, 0.4);
 }
 .table__row .table__element.correct {
-  background-color: rgba(121, 201, 125, 0.7);
+  background-color: rgba(121, 201, 125, 0.4);
 }
 
 .score-hide-detail {
@@ -64,7 +57,6 @@
   font-size: 4rem;
   cursor: pointer;
   animation: score-detail-btn 2500ms infinite;
-  color: gray;
 }
 
 @keyframes anim-show {

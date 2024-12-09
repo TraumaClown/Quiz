@@ -43,6 +43,3 @@
   background-color: #4a117f;
   transition: background-color 0.2s;
 }
-.modal__btns button:nth-child(2) {
-  color: gold;
-}

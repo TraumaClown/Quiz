@@ -22,7 +22,7 @@ const Choices_Boolean: React.FC<Omit<ChoicesProps, "incorrectAnswers">> = ({
       })
     )
 
-    setSessionProgressTracker!((state) => {
+    setSessionProgressTracker((state) => {
       return {
         ...state,
         current: state.current + 1,
@@ -33,18 +33,18 @@ const Choices_Boolean: React.FC<Omit<ChoicesProps, "incorrectAnswers">> = ({
   return (
     <div className="w-6/12 h-3/5 flex items-center gap-x-2  ">
       <div
-        className="bool-choice-true-shadow w-6/12 h-3/6  flex justify-center items-center bg-slate-400 bg-opacity-60"
+        className="w-6/12 h-3/6 flex justify-center items-center bg-teal-900 bg-opacity-60 hover:bg-opacity-100 transition-colors rounded-2xl cursor-pointer"
         data-answer="True"
         onClick={(e) => handleChoiceSelection(e)}
       >
-        <FaCheck className="scale-[3] text-green-700" />
+        <FaCheck className="scale-[5] text-green-600" />
       </div>
       <div
-        className="bool-choice-true-shadow w-6/12 h-3/6 flex justify-center items-center"
+        className="w-6/12 h-3/6 flex justify-center items-center bg-rose-900 bg-opacity-60 hover:bg-opacity-100 transition-colors rounded-2xl cursor-pointer"
         data-answer="False"
         onClick={(e) => handleChoiceSelection(e)}
       >
-        <FaXmark className="scale-[3] text-red-700" />
+        <FaXmark className="scale-[5] text-red-600" />
       </div>
     </div>
   )

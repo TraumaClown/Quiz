@@ -39,12 +39,6 @@
   margin: 3em;
 }
 
-.score-bar-reaction {
-  text-align: center;
-  color: rgba(0, 0, 0, 0.849);
-  margin-top: 0.5em;
-}
-
 @keyframes anim-perc-bar {
   to {
     stroke-dashoffset: var(--calc);

@@ -74,7 +74,7 @@
 }
 .score-show-detail__text {
   transition: inherit;
-  color: black;
+  color: white;
   text-decoration: underline;
 }
 
@@ -105,10 +105,10 @@
   }
   99% {
     transform: translateY(20px);
+    opacity: 0;
   }
   100% {
     display: none;
-    opacity: 0;
   }
 }
 @keyframes anim-show {

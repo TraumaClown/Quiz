@@ -19,6 +19,7 @@ export type ModalProps = {
 }
 
 export interface ResultDetailProps extends QuizStats {
+  type?: "multiple" | "boolean"
   resultDetailDisplay?: boolean
   setResultDetailDisplay?: Dispatch<SetStateAction<boolean>>
 }
@@ -32,6 +33,7 @@ export type ShowRecordDetail = {
 
 export type ResultScoreDemoProps = {
   percentage: number
+  color: string
   size?: number
   showReaction?: boolean
   className?: string

@@ -1,11 +1,12 @@
 import { ResultScoreDemoProps } from "@/app/_src/types/components"
 import { useEffect, useRef } from "react"
-import type { ScoreColors } from "@/app/_src/types/models"
+
 import CountUp from "react-countup"
 import "./result-score-demo.css"
 
 const ResultScoreDemo: React.FC<ResultScoreDemoProps> = ({
   percentage,
+  color,
   showReaction = false,
   size = 1,
   className,
@@ -15,36 +16,17 @@ const ResultScoreDemo: React.FC<ResultScoreDemoProps> = ({
   // 375 is the default stroke-dasharray and stroke-dashoffset
   const scoreBarLengthCalculation: number =
     375 * size - (375 * size * percentage) / 100
-  const scoreColors: ScoreColors = {
-    red: "#ff2727",
-    yellow: "#ffff38",
-    blue: "#3333ff",
-    green: "#008100",
-  }
-  const scoreBarColor = (): string => {
+
+  const scoreReactionText = (): string => {
     const perc = percentage
     switch (true) {
       case perc <= 25:
-        return scoreColors.red
-      case perc > 25 && perc <= 50:
-        return scoreColors.yellow
-      case perc > 50 && perc <= 75:
-        return scoreColors.blue
-      case perc > 75:
-        return scoreColors.green
-      default:
-        throw new Error("unexpected return")
-    }
-  }
-  const scoreReactionText = (): string => {
-    switch (scoreBarColor()) {
-      case scoreColors.red:
         return "Bad luck! Maybe try again?"
-      case scoreColors.yellow:
-        return "Well done! Want to try again?"
-      case scoreColors.blue:
+      case perc > 25 && perc <= 50:
+        return "Well done! Want to do another?"
+      case perc > 50 && perc <= 75:
         return 'Awesome! You "DO" know things!'
-      case scoreColors.green:
+      case perc > 75:
         return "Perfect! You should give yourself a treat!"
       default:
         return "oops something went wrong"
@@ -66,15 +48,17 @@ const ResultScoreDemo: React.FC<ResultScoreDemoProps> = ({
     <div
       className={`flex justify-center items-center gap-3 flex-col ${className}`}
     >
+      {/* demo */}
       <div
         className="flex justify-center items-center relative rounded-full score__score-demo"
+        title={`${percentage.toString()}%`}
         ref={scoreDemo}
       >
         <div className="score-demo__bg absolute w-full h-full rounded-full bg-pink-300"></div>
         <div className="score-demo__score-bar absolute rounded-full">
           <svg className="score-bar__svg">
             <circle
-              style={{ stroke: scoreBarColor() }}
+              style={{ stroke: color }}
               cx={70 * size}
               cy={70 * size}
               r={60 * size}
@@ -88,11 +72,12 @@ const ResultScoreDemo: React.FC<ResultScoreDemoProps> = ({
           delay={0.3}
           end={percentage}
           suffix={"%"}
-          style={{ color: scoreBarColor() }}
+          style={{ color: color }}
         />
       </div>
+      {/* the text below the demo */}
       {showReaction ? (
-        <div className="score-bar-reaction">:: {scoreReactionText()} ::</div>
+        <div className="text-white mt-3">:: {scoreReactionText()} ::</div>
       ) : null}
     </div>
   )

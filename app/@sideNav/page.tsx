@@ -5,33 +5,44 @@ import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
 import { statsActions } from "@/app/_src/redux/features/quiz/stats/statsSlice"
 import { recordActions } from "@/app/_src/redux/features/quiz/record/recordSlice"
 import { BsChevronDoubleDown } from "react-icons/bs"
-import Link from "next/link"
 import "./side-nav.css"
 
 const SideNav: React.FC = () => {
   const map = useAppSelector((state) => state.mapReducer)
   const isRecording = useAppSelector((state) => state.recordReducer.isRecording)
+  const { userAnswers } = useAppSelector((state) => state.statsReducer)
   const dispatch = useAppDispatch()
-  const beginQuiz = (): void => {
+  const start = (): void => {
     dispatch(statsActions.reset())
     dispatch(mapActions.change("category"))
   }
-  const restartQuiz = (): void => {
-    if (map === "session") {
+  const restart = (): void => {
+    // warn the user for losing progress when restarting
+    if (Boolean(...userAnswers)) {
       const isConfirmed = confirm("You will lose your progress!")
       if (isConfirmed) {
         dispatch(statsActions.reset())
-        dispatch(mapActions.change("main"))
+        dispatch(mapActions.change("category"))
       } else return
     }
     dispatch(statsActions.reset())
-    dispatch(mapActions.change("main"))
+    dispatch(mapActions.change("category"))
+  }
+
+  // click handler for Record, About and Exit buttons.
+  const navigate = (
+    to: Omit<ReturnType<typeof mapActions.change>, "type">["payload"]
+  ): void => {
+    dispatch(mapActions.change(to))
   }
 
   return (
     <>
       {/* the toggle for side nav */}
-      <div className="nav-icon w-fit h-fit absolute z-20 inset-y-0 m-auto sm:hidden has-[input:checked]:rotate-180">
+      <div
+        className="nav-icon w-fit h-fit absolute z-20 inset-y-0 m-auto sm:hidden has-[input:checked]:rotate-180 transition-transform hover:animate-none hover:translate-x-2"
+        title="side navigation"
+      >
         <input
           type="checkbox"
           name="nav-toggle"
@@ -39,7 +50,7 @@ const SideNav: React.FC = () => {
           className="hidden"
         />
         <label htmlFor="nav-toggle">
-          <BsChevronDoubleDown className="-rotate-90 text-teal-500 opacity-80 scale-[5] cursor-pointer" />
+          <BsChevronDoubleDown className="-rotate-90 text-teal-500 hover:text-teal-400 opacity-80 scale-[5] cursor-pointer" />
         </label>
       </div>
 
@@ -60,7 +71,7 @@ const SideNav: React.FC = () => {
                 ? true
                 : false
             }
-            onClick={beginQuiz}
+            onClick={start}
           >
             Start
           </button>
@@ -73,23 +84,20 @@ const SideNav: React.FC = () => {
                 ? true
                 : false
             }
-            onClick={restartQuiz}
+            onClick={restart}
           >
             Restart
           </button>
 
           {/* record */}
           <div className="nav-btn flex relative z-10">
-            <button
-              className="w-full"
-              onClick={() => dispatch(mapActions.change("record"))}
-            >
+            <button className="w-full" onClick={() => navigate("record")}>
               Record
             </button>
             <input
               type="checkbox"
               checked={isRecording}
-              className="scale-125"
+              className="scale-125 accent-blue-600"
               onChange={(e) =>
                 dispatch(recordActions.setIsRecording(e.currentTarget.checked))
               }
@@ -101,17 +109,14 @@ const SideNav: React.FC = () => {
           </div>
 
           {/* about */}
-          <button
-            className="nav-btn"
-            onClick={() => dispatch(mapActions.change("about"))}
-          >
+          <button className="nav-btn" onClick={() => navigate("about")}>
             About
           </button>
 
           {/* exit */}
-          <Link href={"/"} className="nav-btn" onClick={restartQuiz}>
+          <button className="nav-btn" onClick={() => navigate("main")}>
             Exit
-          </Link>
+          </button>
         </div>
       </nav>
     </>

@@ -1,4 +1,4 @@
-import { render, screen } from "@/app/_src/test-utils"
+import { render, screen } from "@/app/_src/uils/test-utils"
 import user from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { configureStore } from "@reduxjs/toolkit"
@@ -50,7 +50,7 @@ describe("Result", () => {
       element
     ) => {
       if (!element) return false
-      const hasText = (node: Element) => node.textContent === "0/1"
+      const hasText = (node: Element) => node.textContent === "0 / 1"
       const nodeHasText = hasText(element)
       const childrenDontHaveText = Array.from(element.children).every(
         (child) => !hasText(child)
@@ -66,7 +66,7 @@ describe("Result", () => {
   describe("demo", () => {
     test("renders heading", () => {
       renderWithProviders(<Result />)
-      const heading = screen.getByRole("heading", { name: "Your Score" })
+      const heading = screen.getByRole("heading", { name: /Your Score/ })
       expect(heading).toBeInTheDocument()
     })
 

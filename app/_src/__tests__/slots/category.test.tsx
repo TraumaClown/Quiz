@@ -1,5 +1,4 @@
-import "@testing-library/jest-dom"
-import { render, screen } from "@/app/_src/test-utils"
+import { render, screen } from "@/app/_src/uils/test-utils"
 import Category from "@/app/@category/page"
 import categories from "@/app/_src/db/categories.json"
 

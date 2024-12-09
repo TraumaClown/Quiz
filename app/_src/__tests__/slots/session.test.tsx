@@ -1,4 +1,4 @@
-import { render, screen } from "@/app/_src/test-utils"
+import { render, screen } from "@/app/_src/uils/test-utils"
 import user from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { configureStore } from "@reduxjs/toolkit"

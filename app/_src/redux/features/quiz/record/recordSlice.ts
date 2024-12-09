@@ -7,28 +7,25 @@ import type {
 
 const quizRecord: QuizRecord = {
   isRecording: true,
-  history: [],
+  records: [],
 }
 
 const recordSlice = createSlice({
   name: "QuizRecord",
   initialState: quizRecord,
   reducers: {
+    isRecording: (state) => {
+      state.isRecording
+    },
     setIsRecording: (state, { payload }: QuizRecordSetIsRecording) => {
       state.isRecording = payload
     },
     add: (state, { payload }: QuizRecordActionAdd) => {
-      return {
-        isRecording: state.isRecording,
-        history: [...state.history, payload],
-      }
+      state.records.push(payload)
     },
 
     clean: (state) => {
-      return {
-        isRecording: state.isRecording,
-        history: [],
-      }
+      state.records = []
     },
   },
 })

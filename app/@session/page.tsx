@@ -113,7 +113,7 @@ const Session: React.FC = () => {
       </div>
 
       {/* question */}
-      <div className="w-full h-[39%] rounded-ee-full rounded-es-full py-16 px-8 text-center text-black text-xl border-y-orange-300">
+      <div className="w-full h-[39%] flex justify-center items-center rounded-ee-[150px] rounded-es-[150px] text-black text-xl bg-orange-100 bg-opacity-90 px-10 text-center">
         {decodedQuestion}
       </div>
 

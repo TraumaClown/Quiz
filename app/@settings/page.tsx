@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { useAppDispatch } from "@/app/_src/redux/hooks"
 import { settingsActions } from "@/app/_src/redux/features/quiz/settings/settingsSlice"
 import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
@@ -8,19 +8,18 @@ import "./settings.css"
 
 const Settings: React.FC = () => {
   const [numberOfQuestion, setNumberOfQuestion] = useState<string>("7")
-  const typeOfQuestions = useRef<string>()
-  const difficulty = useRef<string>()
+  const [difficulty, setDifficulty] = useState<string | undefined>(undefined)
+  const [type, setType] = useState<string | undefined>(undefined)
   const dispatch = useAppDispatch()
-
   const startSession = (): void => {
     //make sure the required data in collected
-    if (!typeOfQuestions.current || !difficulty.current) {
-      alert("Not done yet!")
+    if (!type || !difficulty) {
+      window.alert("Not Done Yet!")
       return
     }
     //dispatch the required data and then change the slot
-    dispatch(settingsActions.setDifficulty(difficulty.current))
-    dispatch(settingsActions.setType(typeOfQuestions.current))
+    dispatch(settingsActions.setDifficulty(difficulty))
+    dispatch(settingsActions.setType(type))
     dispatch(settingsActions.setAmount(Number(numberOfQuestion)))
     dispatch(mapActions.change("session"))
   }
@@ -34,15 +33,17 @@ const Settings: React.FC = () => {
       <div className="w-full flex flex-col items-center h-full text-white gap-y-5 px-5">
         {/* difficulties */}
         <div className="bordered flex flex-col items-center mt-5 w-full">
-          <p className="self-start p-2">Select Difficulty :</p>
+          <p className="self-start p-2">
+            Select Difficulty
+            <span className={difficulty ? undefined : "text-red-600"}>*</span> :
+          </p>
           <div className="flex">
             <input
               type="radio"
               name="difficulty"
               id="easy"
               className="hidden"
-              onClick={() => (difficulty.current = "easy")}
-              style={{ display: "none" }}
+              onClick={() => setDifficulty("easy")}
             />
             <label htmlFor="easy" className="btn-settings">
               Easy
@@ -52,7 +53,7 @@ const Settings: React.FC = () => {
               name="difficulty"
               id="medium"
               className="hidden"
-              onClick={() => (difficulty.current = "medium")}
+              onClick={() => setDifficulty("medium")}
             />
             <label htmlFor="medium" className="btn-settings">
               Medium
@@ -62,7 +63,7 @@ const Settings: React.FC = () => {
               name="difficulty"
               id="difficult"
               className="hidden"
-              onClick={() => (difficulty.current = "hard")}
+              onClick={() => setDifficulty("hard")}
             />
             <label htmlFor="difficult" className="btn-settings">
               Difficult
@@ -72,14 +73,17 @@ const Settings: React.FC = () => {
 
         {/* types */}
         <div className="bordered flex flex-col items-center w-full mx-20">
-          <p className="self-start p-2">Select Type :</p>
+          <p className="self-start p-2">
+            Select Type
+            <span className={type ? undefined : "text-red-600"}>*</span> :
+          </p>
           <div className="flex">
             <input
               type="radio"
               name="type"
               id="multiple"
               className="hidden"
-              onClick={() => (typeOfQuestions.current = "multiple")}
+              onClick={() => setType("multiple")}
             />
             <label htmlFor="multiple" className="btn-settings">
               Multiple
@@ -89,7 +93,7 @@ const Settings: React.FC = () => {
               name="type"
               id="boolean"
               className="hidden"
-              onClick={() => (typeOfQuestions.current = "boolean")}
+              onClick={() => setType("boolean")}
             />
             <label htmlFor="boolean" className="btn-settings">
               True | False
@@ -104,7 +108,7 @@ const Settings: React.FC = () => {
             <span>1</span>
             <input
               onChange={(e) => setNumberOfQuestion(e.currentTarget.value)}
-              className="w-1/2"
+              className="w-1/2 accent-teal-600"
               type="range"
               min={1}
               max={10}

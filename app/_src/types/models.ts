@@ -56,7 +56,7 @@ export type calculateResultPercentage = {
 
 export type QuizRecord = {
   isRecording: boolean
-  history: {
+  records: {
     percentage: number
     correct: number
     total: number
@@ -71,7 +71,7 @@ export type QuizRecord = {
 }
 
 export type QuizRecordActionAdd = {
-  payload: QuizRecord["history"][0]
+  payload: QuizRecord["records"][0]
 }
 
 export type QuizRecordSetIsRecording = {
