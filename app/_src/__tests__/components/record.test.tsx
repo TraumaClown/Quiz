@@ -2,7 +2,7 @@ import { act, render, screen } from "@/app/_src/uils/test-utils"
 import user from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { configureStore } from "@reduxjs/toolkit"
-import Record from "@/app/@record/page"
+import Record from "@/app/_src/components/record/Record"
 import {
   recordReducer,
   recordActions,
@@ -68,14 +68,14 @@ describe("Record", () => {
 
   test("renders clear button", async () => {
     renderWithProviders(<Record />)
-    const clearBTN = screen.getByRole("button", { name: "Clear" })
+    const clearBTN = screen.getByTestId("clear-record")
     expect(clearBTN).toBeInTheDocument()
   })
 
   test("clears records when the Clear button is clicked", async () => {
     dispatchBash()
     renderWithProviders(<Record />)
-    const clearBTN = screen.getByRole("button", { name: "Clear" })
+    const clearBTN = screen.getByTestId("clear-record")
     await user.click(clearBTN)
     const noRecord = screen.getByText(/NO RECORD /)
     expect(noRecord).toBeInTheDocument()

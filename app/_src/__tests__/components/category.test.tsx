@@ -1,5 +1,5 @@
 import { render, screen } from "@/app/_src/uils/test-utils"
-import Category from "@/app/@category/page"
+import Category from "@/app/_src/components/category/Category"
 import categories from "@/app/_src/db/categories.json"
 
 describe("Category", () => {

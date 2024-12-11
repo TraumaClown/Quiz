@@ -2,7 +2,7 @@ import { render, screen } from "@/app/_src/uils/test-utils"
 import user from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { configureStore } from "@reduxjs/toolkit"
-import Result from "@/app/@result/page"
+import Result from "@/app/_src/components/result/Result"
 import {
   statsReducer,
   statsActions,

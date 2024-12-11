@@ -1,13 +1,12 @@
 "use client"
 
 import { useAppSelector } from "@/app/_src/redux/hooks"
-import Main from "@/app/@main/page"
-import Category from "@/app/@category/page"
-import Settings from "@/app/@settings/page"
-import Session from "@/app/@session/page"
-import Result from "@/app/@result/page"
-import Record from "@/app/@record/page"
-import About from "@/app/@about/page"
+import Category from "@/app/_src/components/category/Category"
+import Settings from "@/app/_src/components/settings/Settings"
+import Session from "@/app/_src/components/session/Session"
+import Result from "@/app/_src/components/result/Result"
+import Record from "@/app/_src/components/record/Record"
+import About from "@/app/_src/components/about/About"
 import NotFound from "@/app/not-found"
 
 const QuizPage: React.FC = () => {
@@ -16,7 +15,7 @@ const QuizPage: React.FC = () => {
   const switcher = () => {
     switch (QuizCurrentState) {
       case "main":
-        return <Main />
+        return <></>
       case "category":
         return <Category />
       case "settings":

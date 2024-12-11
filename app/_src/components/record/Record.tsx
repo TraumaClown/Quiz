@@ -8,7 +8,7 @@ import type { ShowRecordDetail } from "@/app/_src/types/components"
 import { recordActions } from "@/app/_src/redux/features/quiz/record/recordSlice"
 import ResultScoreDemo from "@/app/_src/components/result_score_demo/ResultScoreDemo"
 import { FaTrashCan } from "react-icons/fa6"
-import { scoreColor } from "../_src/uils/score-color"
+import { scoreColor } from "../../uils/score-color"
 
 const Record: React.FC = () => {
   const { records, isRecording } = useAppSelector(
@@ -141,7 +141,7 @@ const Record: React.FC = () => {
           onClick={() => dispatch(recordActions.clean())}
           title="clear all records"
         >
-          <button>
+          <button data-testid="clear-record">
             <FaTrashCan />
           </button>
         </div>

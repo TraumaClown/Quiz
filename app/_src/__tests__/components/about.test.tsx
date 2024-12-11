@@ -1,5 +1,5 @@
 import { render, screen } from "@/app/_src/uils/test-utils"
-import About from "@/app/@about/page"
+import About from "@/app/_src/components/about/About"
 
 describe("About", () => {
   test("renders api link", () => {

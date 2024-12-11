@@ -50,7 +50,7 @@ describe("ResultDetail", () => {
 
     const table = screen.getByRole("table")
     const tableHeadRow = screen.getByRole("row", {
-      name: "Question Your Answer Correct Answer",
+      name: "Question Result",
     })
     const row = screen.getByRole("row", {
       name: "Question1",

@@ -1,17 +1,5 @@
-import { logRoles, render, screen } from "@/app/_src/uils/test-utils"
-import user from "@testing-library/user-event"
-import Settings from "@/app/@settings/page"
-import {
-  settingsActions,
-  settingsReducer,
-} from "@/app/_src/redux/features/quiz/settings/settingsSlice"
-import {
-  mapActions,
-  mapReducer,
-} from "@/app/_src/redux/features/quiz/map/mapSlice"
-import { useAppDispatch } from "@/app/_src/redux/hooks"
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import { Provider } from "react-redux"
+import { render, screen } from "@/app/_src/uils/test-utils"
+import Settings from "@/app/_src/components/settings/Settings"
 
 describe("Settings", () => {
   test("renders the heading and a paragraph", () => {
@@ -65,31 +53,3 @@ describe("Settings", () => {
     expect(button).toBeInTheDocument()
   })
 })
-
-// test("handles start button click", async () => {
-//   renderWithProviders(<Settings />)
-//   const difficultyRadios = screen.getAllByRole("radio")
-//   const startButton = screen.getByRole("button", {
-//     name: /Start Your Quiz Session/i,
-//   })
-//   await user.click(difficultyRadios[0])
-//   await user.click(difficultyRadios[3])
-//   await user.click(startButton)
-//   screen.debug()
-// })
-
-// test("shows alert if required data is not provided", () => {
-//   const dispatch = jest.fn()
-//   ;(useAppDispatch as jest.Mock).mockReturnValue(dispatch)
-//   window.alert = jest.fn()
-
-//   renderWithProviders(<Settings />)
-
-//   // Click the start button without setting required data
-//   fireEvent.click(screen.getByText("Start Your Quiz Session"))
-
-//   // Assert alert is shown
-//   expect(window.alert).toHaveBeenCalledWith("Not done yet!")
-//   // Ensure no actions are dispatched
-//   expect(dispatch).not.toHaveBeenCalled()
-// })

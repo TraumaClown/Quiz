@@ -14,9 +14,6 @@ const recordSlice = createSlice({
   name: "QuizRecord",
   initialState: quizRecord,
   reducers: {
-    isRecording: (state) => {
-      state.isRecording
-    },
     setIsRecording: (state, { payload }: QuizRecordSetIsRecording) => {
       state.isRecording = payload
     },

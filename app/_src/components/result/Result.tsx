@@ -5,7 +5,7 @@ import { BsChevronDoubleDown } from "react-icons/bs"
 import useCalculateResultPercentage from "@/app/_src/hooks/useCalculateResultPercentage"
 import { useAppSelector } from "@/app/_src/redux/hooks"
 import ResultScoreDemo from "@/app/_src/components/result_score_demo/ResultScoreDemo"
-import { scoreColor } from "../_src/uils/score-color"
+import { scoreColor } from "../../uils/score-color"
 import "./result.css"
 const ResultDetail = lazy(
   () => import("@/app/_src/components/result_detail/ResultDetail")
