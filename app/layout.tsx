@@ -17,9 +17,11 @@ const RootLayout = ({
   return (
     <html lang="en">
       <AppProviders>
-        <body className="flex bg-gray-800 h-screen relative">
-          {sideNav}
-          {children}
+        <body>
+          <div className="flex h-screen w-screen relative bg-gray-900 bg-opacity-95">
+            {sideNav}
+            {children}
+          </div>
         </body>
       </AppProviders>
     </html>

@@ -17,7 +17,7 @@ const Category: React.FC = () => {
   const categoryItems = categories.map((category) => (
     <li
       key={category.id}
-      className="category__item w-48 h-28 transition-colors flex items-center justify-center px-3 text-white cursor-pointer text-center text-lg"
+      className="category__item w-48 h-28 transition-colors duration-75 flex items-center justify-center px-3 text-white cursor-pointer text-center text-xl backdrop-blur-[2px]"
       onClick={() => selectCategory(category.id)}
     >
       {category.value}
@@ -26,7 +26,7 @@ const Category: React.FC = () => {
 
   return (
     <div className="h-full overflow-auto">
-      <h2 className="text-white text-center py-5 border-b-2 border-opacity-35 border-white sticky top-0 bg-gray-800 text-xl">
+      <h2 className="text-white text-center py-5 border-b-2 border-opacity-35 border-white sticky top-0 bg-gray-900 bg-opacity-90 backdrop-blur-md text-xl z-10">
         :: Select Category ::
       </h2>
       <ul className="category grid justify-center">{categoryItems}</ul>

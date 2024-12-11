@@ -7,6 +7,7 @@ import cetegories from "@/app/_src/db/categories.json"
 import type { ShowRecordDetail } from "@/app/_src/types/components"
 import { recordActions } from "@/app/_src/redux/features/quiz/record/recordSlice"
 import ResultScoreDemo from "@/app/_src/components/result_score_demo/ResultScoreDemo"
+import { FaTrashCan } from "react-icons/fa6"
 import { scoreColor } from "../_src/uils/score-color"
 
 const Record: React.FC = () => {
@@ -18,7 +19,6 @@ const Record: React.FC = () => {
   const enabledRecording = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ): void => {
-    console.log(e.currentTarget.textContent)
     if (isRecording) {
       e.currentTarget.textContent = "Already Enabled!"
       return
@@ -85,7 +85,7 @@ const Record: React.FC = () => {
         onClick={() => {
           showRecordDetail({ questions, correctAnswers, answers, result })
         }}
-        className="w-full h-16 flex items-center justify-center bg-indigo-300 my-14 p-1 cursor-pointer gap-x-2"
+        className="w-full h-[4.2rem] flex items-center justify-center bg-gray-100 my-8 p-1 cursor-pointer gap-x-3"
       >
         <ResultScoreDemo
           className="w-2/5"
@@ -94,20 +94,37 @@ const Record: React.FC = () => {
           color={color}
         />
         {/* tags */}
-        <div className="gap-y-px text-center w-2/5">
+        <div className="w-2/5 text-sm text-white">
+          {/* category */}
           <small
-            className="rounded-lg bg-green-300 px-2 overflow-hidden whitespace-nowrap text-ellipsis block w-full"
+            className="rounded-sm bg-indigo-500 px-2 overflow-hidden whitespace-nowrap text-ellipsis block w-full text-center"
             title={cate?.value}
           >
             {cate?.value}
           </small>
-          <small className="w-fit rounded-lg bg-green-300 px-2 capitalize">
+          {/* difficulty */}
+          <small
+            className={`w-fit rounded-sm px-2 capitalize mx-px ${
+              difficulty === "easy"
+                ? "bg-green-600"
+                : difficulty === "medium"
+                ? "bg-yellow-600"
+                : "bg-red-800"
+            }`}
+          >
             {difficulty}
           </small>
-          <small className="w-fit rounded-lg bg-green-300 px-2">
+          {/* summery */}
+          <small
+            className={`w-fit rounded-sm px-2 mx-px ${
+              color === "#ffff38" ? "text-black" : "text-white"
+            }`}
+            style={{ backgroundColor: color }}
+          >
             {correct}/{total}
           </small>
-          <small className="block w-fit rounded-lg bg-green-300 px-2">
+          {/* type */}
+          <small className="block w-fit rounded-sm bg-indigo-500 px-2 capitalize">
             {type}
           </small>
         </div>
@@ -116,16 +133,22 @@ const Record: React.FC = () => {
   })
 
   return (
-    <div className="w-[30%] h-screen flex text-white overflow-hidden">
+    <div className="w-full h-screen flex text-white overflow-hidden">
       {/* side */}
-      <div className="w- h-screen bg-blue-900 overflow-y-auto">
-        <div className="h-9 w-full bg-green-300 sticky top-0">
-          <button onClick={() => dispatch(recordActions.clean())}>Clear</button>
+      <div className="w-[33%] md:w-[30%] lg:w-1/4 h-screen bg-teal-900 bg-opacity-80 backdrop-blur-[2px] overflow-y-auto overflow-x-hidden md:ml-4">
+        <div
+          className="h-8 w-full bg-teal-600 sticky top-0 z-10 flex justify-center items-center cursor-pointer hover:text-red-400"
+          onClick={() => dispatch(recordActions.clean())}
+          title="clear all records"
+        >
+          <button>
+            <FaTrashCan />
+          </button>
         </div>
         {sideItems}
       </div>
       {/* detail */}
-      <div className="w-9/12 relative">
+      <div className="w-[67%] md:w-[70%] lg:w-3/4 relative">
         {detail ? (
           detail
         ) : (

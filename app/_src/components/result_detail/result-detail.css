@@ -5,13 +5,11 @@
   opacity: 0;
   transition: all 0.5s;
   overflow: auto;
-  /* border-top-left-radius: 7vw; */
-  /* border-bottom-left-radius: 7vw; */
   color: white;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .table {
-  width: 90%;
   border-collapse: collapse;
   margin: auto;
 }
@@ -26,7 +24,8 @@
   border-top: 1px solid rgba(255, 239, 187, 0.5);
 }
 .table__row .table__element {
-  padding: 2em 1em;
+  padding-block: 2em;
+  padding-inline: 0.5em;
   text-align: center;
 }
 .table__row .table__element.incorrect {
@@ -77,4 +76,4 @@
   100% {
     transform: initial;
   }
-} /*# sourceMappingURL=quiz-result-detail.css.map */
+}

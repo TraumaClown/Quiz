@@ -10,10 +10,12 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
 
   const GoBackButtonClickHandler = () => {
     dispatch(statsActions.reset())
-    dispatch(mapActions.change("main"))
+    dispatch(settingsActions.reset())
+    dispatch(mapActions.change("category"))
   }
 
   const defaultButtonClickHandler = () => {
+    dispatch(statsActions.reset())
     dispatch(settingsActions.setToDefault())
     dispatch(mapActions.change("session"))
   }
@@ -43,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
     <p>
       {desciption}.
       <br />
-      Please check your connection.
+      Please check your internet connection.
     </p>
   )
 
@@ -70,7 +72,9 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
       </div>
       <div className="modal__btns">
         <button onClick={GoBackButtonClickHandler}>Go Back</button>
-        {true && <button onClick={defaultButtonClickHandler}>Default</button>}
+        {reason !== "FETCH_ERROR" && (
+          <button onClick={defaultButtonClickHandler}>Default</button>
+        )}
       </div>
     </div>
   )

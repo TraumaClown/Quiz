@@ -12,7 +12,7 @@ const ResultDetail: React.FC<ResultDetailProps> = ({
   userQuizResult,
   type,
 }) => {
-  const deternimType: "multiple" | "boolean" =
+  const determineType: "multiple" | "boolean" =
     type ||
     (userAnswers[0] === "False" || userAnswers[0] === "True"
       ? "boolean"
@@ -23,39 +23,26 @@ const ResultDetail: React.FC<ResultDetailProps> = ({
     return (
       <tr className="table__row" key={index}>
         <td className="table__element">{question}</td>
-        {deternimType === "boolean" ? (
+        {determineType === "boolean" ? (
           // if type is boolean
-          <>
-            {/* user answer */}
-            <td className={`table__element ${correctOrIncorrect}`}>
-              <div className="flex justify-center items-center">
-                {userAnswers[index] === "False" ? (
-                  <FaXmark className="scale-[3] text-red-600" />
-                ) : (
-                  <FaCheck className="scale-[3] text-green-600" />
-                )}
-              </div>
-            </td>
-            {/* correct answer */}
-            <td className={`table__element ${correctOrIncorrect}`}>
-              <div className="flex justify-center items-center">
-                {correctAnswers[index] === "False" ? (
-                  <FaXmark className="scale-[3] text-red-600" />
-                ) : (
-                  <FaCheck className="scale-[3] text-green-600" />
-                )}
-              </div>
-            </td>
-          </>
+          <td className={`table__element ${correctOrIncorrect}`}>
+            <div className="flex justify-center items-center p-10">
+              {userQuizResult[index] ? (
+                <FaCheck className="scale-[3] text-green-600" />
+              ) : (
+                <FaXmark className="scale-[3] text-red-600" />
+              )}
+            </div>
+          </td>
         ) : (
           // if type is multiple
           <>
             {/* user answer */}
-            <td className={`table__element ${correctOrIncorrect}`}>
+            <td className={`table__element ${correctOrIncorrect} w-fit`}>
               {userAnswers[index]}
             </td>
             {/* correct answer */}
-            <td className={`table__element ${correctOrIncorrect}`}>
+            <td className={`table__element ${correctOrIncorrect} w-fit`}>
               {correctAnswers[index]}
             </td>
           </>
@@ -66,23 +53,29 @@ const ResultDetail: React.FC<ResultDetailProps> = ({
 
   return (
     <div
-      className={`quiz-result-page__detail ${
+      className={`quiz-result-page__detail md:px-4 px-0 ${
         resultDetailDisplay ? "show" : ""
       }`}
     >
       <table className="table">
-        <thead className="table__head sticky top-0 bg-gray-800 z-10">
+        <thead className="table__head sticky top-0 bg-gray-800 z-10 bg-opacity-95 backdrop-blur-sm">
           <tr className="table__row">
             <th className="head__element">Question</th>
-            <th className="head__element">Your Answer</th>
-            <th className="head__element">Correct Answer</th>
+            {determineType === "multiple" ? (
+              <>
+                <th className="head__element">Your Answer</th>
+                <th className="head__element">Correct Answer</th>
+              </>
+            ) : (
+              <th>Result</th>
+            )}
           </tr>
         </thead>
-        <tbody className="table__body">{result}</tbody>
+        <tbody className="table__body sm:text-base text-sm">{result}</tbody>
       </table>
       {setResultDetailDisplay ? (
         <div
-          className="score-hide-detail text-teal-500 hover:text-teal-400 z-20"
+          className="score-hide-detail text-teal-500 hover:text-teal-400 z-50"
           title="Back"
           onClick={() => setResultDetailDisplay(false)}
         >

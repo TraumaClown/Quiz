@@ -31,7 +31,8 @@ const Choices_Boolean: React.FC<Omit<ChoicesProps, "incorrectAnswers">> = ({
   }
 
   return (
-    <div className="w-6/12 h-3/5 flex items-center gap-x-2  ">
+    <div className="w-6/12 h-3/5 flex items-center gap-x-2 m-auto">
+      {/* True */}
       <div
         className="w-6/12 h-3/6 flex justify-center items-center bg-teal-900 bg-opacity-60 hover:bg-opacity-100 transition-colors rounded-2xl cursor-pointer"
         data-answer="True"
@@ -39,6 +40,7 @@ const Choices_Boolean: React.FC<Omit<ChoicesProps, "incorrectAnswers">> = ({
       >
         <FaCheck className="scale-[5] text-green-600" />
       </div>
+      {/* False */}
       <div
         className="w-6/12 h-3/6 flex justify-center items-center bg-rose-900 bg-opacity-60 hover:bg-opacity-100 transition-colors rounded-2xl cursor-pointer"
         data-answer="False"

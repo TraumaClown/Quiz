@@ -4,7 +4,7 @@ export const scoreColor = (percentage: number): string => {
   const scoreColors: ScoreColors = {
     red: "#ff2727",
     yellow: "#ffff38",
-    blue: "#4a4aff",
+    blue: "#135dff",
     green: "#008100",
   }
   const { red, yellow, green, blue } = scoreColors

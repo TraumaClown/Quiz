@@ -26,7 +26,7 @@ const Settings: React.FC = () => {
 
   return (
     <>
-      <h2 className="text-center text-white py-5 text-xl">
+      <h2 className="text-center text-white py-5 text-xl bg-gray-900 bg-opacity-20 backdrop-blur-sm">
         :: Configuration ::
       </h2>
 

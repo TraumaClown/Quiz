@@ -13,7 +13,7 @@ const Choices_Multiple: React.FC<ChoicesProps> = ({
     .sort(() => Math.random() - 0.5)
     .map((choice, index) => (
       <div
-        className="w-5/6 h-12 flex justify-center items-center bg-pink-600 bg-opacity-80 text-white cursor-pointer hover:bg-opacity-100"
+        className="w-5/6 h-12 flex justify-center items-center bg-pink-600 bg-opacity-80 text-white cursor-pointer hover:bg-opacity-100 px-2"
         key={index}
         onClick={() => handleChoiceSelecting(choice)}
       >

@@ -21,9 +21,6 @@
   transition: all 0.3;
 }
 
-.nav-icon:hover {
-}
-
 .nav-icon:has(input:checked) + nav {
   left: 0;
 }

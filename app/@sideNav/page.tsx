@@ -3,6 +3,7 @@
 import { useAppSelector, useAppDispatch } from "@/app/_src/redux/hooks"
 import { mapActions } from "@/app/_src/redux/features/quiz/map/mapSlice"
 import { statsActions } from "@/app/_src/redux/features/quiz/stats/statsSlice"
+import { settingsActions } from "@/app/_src/redux/features/quiz/settings/settingsSlice"
 import { recordActions } from "@/app/_src/redux/features/quiz/record/recordSlice"
 import { BsChevronDoubleDown } from "react-icons/bs"
 import "./side-nav.css"
@@ -12,20 +13,24 @@ const SideNav: React.FC = () => {
   const isRecording = useAppSelector((state) => state.recordReducer.isRecording)
   const { userAnswers } = useAppSelector((state) => state.statsReducer)
   const dispatch = useAppDispatch()
+
   const start = (): void => {
     dispatch(statsActions.reset())
     dispatch(mapActions.change("category"))
   }
+
   const restart = (): void => {
     // warn the user for losing progress when restarting
-    if (Boolean(...userAnswers)) {
+    if (Boolean(...userAnswers) && map === "session") {
       const isConfirmed = confirm("You will lose your progress!")
       if (isConfirmed) {
         dispatch(statsActions.reset())
+        dispatch(settingsActions.reset())
         dispatch(mapActions.change("category"))
       } else return
     }
     dispatch(statsActions.reset())
+    dispatch(settingsActions.reset())
     dispatch(mapActions.change("category"))
   }
 
@@ -40,7 +45,7 @@ const SideNav: React.FC = () => {
     <>
       {/* the toggle for side nav */}
       <div
-        className="nav-icon w-fit h-fit absolute z-20 inset-y-0 m-auto sm:hidden has-[input:checked]:rotate-180 transition-transform hover:animate-none hover:translate-x-2"
+        className="nav-icon w-fit h-fit absolute z-20 inset-y-0 m-auto md:hidden has-[input:checked]:rotate-180 has-[input:checked]:translate-x-56 transition-[transform] hover:animate-none hover:translate-x-2 has-[input:checked]:hover:translate-x-[13.5rem]"
         title="side navigation"
       >
         <input
@@ -55,9 +60,12 @@ const SideNav: React.FC = () => {
       </div>
 
       {/* the actual nav */}
-      <nav className="flex flex-col justify-evenly h-screen w-48 bg-gray-900 ml-12 text-white absolute z-10 -left-60 sm:left-0 transition-[inset-inline] sm:static">
+      <nav className="flex flex-col justify-evenly h-screen w-48 ml-4 md:ml-8 text-white absolute -left-60 md:left-0 transition-[inset-inline] md:static bg-zinc-950 bg-opacity-80 md:bg-opacity-40 backdrop-blur-md md:backdrop-blur-sm z-10 md:z-0">
         {/* logo */}
-        <div className="h-40 bg-orange-300"></div>
+        <div className="text-6xl text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-200 to-pink-600">
+          QUIZ
+        </div>
+
         {/* buttons */}
         <div className="flex flex-col justify-center gap-y-5">
           {/* start */}

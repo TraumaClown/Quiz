@@ -21,13 +21,13 @@ const ResultScoreDemo: React.FC<ResultScoreDemoProps> = ({
     const perc = percentage
     switch (true) {
       case perc <= 25:
-        return "Bad luck! Maybe try again?"
+        return "Uhh... Don't worry! Maybe try again?"
       case perc > 25 && perc <= 50:
-        return "Well done! Want to do another?"
+        return "Nice try! Want to do another?"
       case perc > 50 && perc <= 75:
         return 'Awesome! You "DO" know things!'
       case perc > 75:
-        return "Perfect! You should give yourself a treat!"
+        return "Perfect! You should probably give yourself a treat!"
       default:
         return "oops something went wrong"
     }

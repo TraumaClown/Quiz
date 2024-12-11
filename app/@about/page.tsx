@@ -19,17 +19,26 @@ const About: React.FC = () => {
         <br />
         <p>Minor Packages :</p>
         <li>
-          <a href="" className="underline hover:text-blue-500">
+          <a
+            href="https://www.npmjs.com/package/react-countup"
+            className="underline hover:text-blue-500"
+          >
             react-countup
           </a>
         </li>
         <li>
-          <a href="" className="underline hover:text-blue-500">
+          <a
+            href="https://www.npmjs.com/package/react-icons"
+            className="underline hover:text-blue-500"
+          >
             react-icons
           </a>
         </li>
         <li>
-          <a href="" className="underline hover:text-blue-500">
+          <a
+            href="https://www.npmjs.com/package/html-entities"
+            className="underline hover:text-blue-500"
+          >
             html-entities
           </a>
         </li>

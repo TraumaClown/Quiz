@@ -19,7 +19,7 @@ const Modal = lazy(() => import("@/app/_src/components/modal/Modal"))
 const Session: React.FC = () => {
   const { URL, type: quizType } = useAssembleQuizSessionURL()
 
-  const { data, isLoading, error, isError } = useGetQuizQuery(URL, {
+  const { data, isLoading, error, isError, isFetching } = useGetQuizQuery(URL, {
     refetchOnMountOrArgChange: true,
   })
   const err = error as unknown as { status: string; error: string }
@@ -64,7 +64,7 @@ const Session: React.FC = () => {
   })
 
   if (current == max) return
-  if (isLoading) return <Loading />
+  if (isLoading || isFetching) return <Loading />
   if (isError) {
     return (
       <Suspense fallback={<Loading />}>
@@ -103,7 +103,7 @@ const Session: React.FC = () => {
   )
 
   return (
-    <div className="flex flex-col items-center w-full h-full">
+    <div className="w-full h-full md:px-4">
       {/* progress bar */}
       <div className="w-full h-[1%]" data-testid="progress bar">
         <div
@@ -113,7 +113,7 @@ const Session: React.FC = () => {
       </div>
 
       {/* question */}
-      <div className="w-full h-[39%] flex justify-center items-center rounded-ee-[150px] rounded-es-[150px] text-black text-xl bg-orange-100 bg-opacity-90 px-10 text-center">
+      <div className="w-full h-2/5 flex justify-center items-center rounded-ee-[150px] rounded-es-[150px] text-black text-2xl lg:text-3xl bg-orange-100 bg-opacity-90 px-10 text-center">
         {decodedQuestion}
       </div>
 
