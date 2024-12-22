@@ -14,7 +14,7 @@ export type ChoicesProps = {
 }
 
 export type ModalProps = {
-  readonly reason: string
+  readonly reason: string | number
   desciption?: string
 }
 

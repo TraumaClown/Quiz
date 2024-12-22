@@ -20,6 +20,7 @@ const Session: React.FC = () => {
   const { URL, type: quizType } = useAssembleQuizSessionURL()
 
   const { data, isLoading, error, isError, isFetching } = useGetQuizQuery(URL, {
+    //prevent using the cached data if repeating the same url
     refetchOnMountOrArgChange: true,
   })
   const err = error as unknown as { status: string; error: string }

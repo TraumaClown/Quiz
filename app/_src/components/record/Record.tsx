@@ -32,7 +32,7 @@ const Record: React.FC = () => {
   if (records.length === 0)
     return (
       <div className="flex flex-col gap-y-4 w-full h-full justify-center items-center text-white">
-        <span className="text-4xl">NO RECORD !</span>
+        <span className="text-4xl">No Record Found!</span>
         <span>
           :: make sure recording is enabled before finishing your quiz ::
         </span>

@@ -27,6 +27,7 @@ const SideNav: React.FC = () => {
         dispatch(statsActions.reset())
         dispatch(settingsActions.reset())
         dispatch(mapActions.change("category"))
+        return
       } else return
     }
     dispatch(statsActions.reset())
@@ -38,6 +39,15 @@ const SideNav: React.FC = () => {
   const navigate = (
     to: Omit<ReturnType<typeof mapActions.change>, "type">["payload"]
   ): void => {
+    if (Boolean(...userAnswers) && map === "session") {
+      const isConfirmed = confirm("You will lose your progress!")
+      if (isConfirmed) {
+        dispatch(statsActions.reset())
+        dispatch(settingsActions.reset())
+        dispatch(mapActions.change(to))
+        return
+      } else return
+    }
     dispatch(mapActions.change(to))
   }
 

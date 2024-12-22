@@ -7,17 +7,10 @@ import "./modal.css"
 
 const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
   const dispatch = useAppDispatch()
-
   const GoBackButtonClickHandler = () => {
     dispatch(statsActions.reset())
     dispatch(settingsActions.reset())
     dispatch(mapActions.change("category"))
-  }
-
-  const defaultButtonClickHandler = () => {
-    dispatch(statsActions.reset())
-    dispatch(settingsActions.setToDefault())
-    dispatch(mapActions.change("session"))
   }
 
   const MESSAGE_FOR_SETTINGS_ARE_NOT_SET: JSX.Element = (
@@ -49,8 +42,18 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
     </p>
   )
 
-  const HORROR: JSX.Element = <p>An error which I didnt catch :(</p>
+  const MESSAGE_FOR_429_TOO_MANY_REQUESTS = (
+    <p>
+      HTTP Response Code: 429 - Too Many Requests!
+      <br />
+      minimum 5 seconds is needed before requesting for a new quiz data!
+      <br />
+      this is an API limitation.
+    </p>
+  )
 
+  const HORROR: JSX.Element = <p>An error which I didnt catch :(</p>
+  console.log(reason)
   const message = (): JSX.Element => {
     switch (reason) {
       case "SETTINGS_ARE_NOT_SET":
@@ -59,6 +62,8 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
         return MESSAGE_FOR_NO_QUESTIONS_IN_DATABASE
       case "FETCH_ERROR":
         return MESSAGE_FOR_FAILED_FETCH
+      case 429:
+        return MESSAGE_FOR_429_TOO_MANY_REQUESTS
       default:
         return HORROR
     }
@@ -72,9 +77,6 @@ const Modal: React.FC<ModalProps> = ({ reason, desciption }) => {
       </div>
       <div className="modal__btns">
         <button onClick={GoBackButtonClickHandler}>Go Back</button>
-        {reason !== "FETCH_ERROR" && (
-          <button onClick={defaultButtonClickHandler}>Default</button>
-        )}
       </div>
     </div>
   )

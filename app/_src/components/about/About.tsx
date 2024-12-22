@@ -1,3 +1,5 @@
+import { FaGithub } from "react-icons/fa6"
+
 const About: React.FC = () => {
   return (
     <div className="text-white flex flex-col w-full h-full items-center justify-center ">
@@ -9,6 +11,7 @@ const About: React.FC = () => {
         ::
       </p>
       <br />
+      <div className="self-start"></div>
       <ol className="list-inside list-disc">
         <p>Put together by :</p>
         <li>Next.js</li>
@@ -43,6 +46,21 @@ const About: React.FC = () => {
           </a>
         </li>
       </ol>
+      <div className="mt-10 flex gap-8">
+        <a
+          href="https://github.com/TraumaClown/Quiz"
+          className="hover:text-blue-500 text-4xl"
+        >
+          <FaGithub />
+        </a>
+        <a
+          href="http://quizapp.kesug.com/"
+          className="underline hover:text-blue-500 text-2xl"
+        >
+          Deployed on InfinityFree{" "}
+          <small className="text-sm">(vpn required)</small>
+        </a>
+      </div>
     </div>
   )
 }
