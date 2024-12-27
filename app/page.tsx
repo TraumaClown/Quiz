@@ -1,6 +1,7 @@
 "use client"
 
 import { useAppSelector } from "@/app/_src/redux/hooks"
+import Main from "@/app/_src/components/main/Main"
 import Category from "@/app/_src/components/category/Category"
 import Settings from "@/app/_src/components/settings/Settings"
 import Session from "@/app/_src/components/session/Session"
@@ -15,7 +16,7 @@ const QuizPage: React.FC = () => {
   const switcher = () => {
     switch (QuizCurrentState) {
       case "main":
-        return <></>
+        return <Main />
       case "category":
         return <Category />
       case "settings":
