@@ -1,5 +1,7 @@
 ## Quiz App  
 
+**Deployed:** [http://quizapp.kesug.com](http://quizapp.kesug.com)
+
 **:: Powered By [opentdb](https://opentdb.com) ::**
 
 Put together by:
